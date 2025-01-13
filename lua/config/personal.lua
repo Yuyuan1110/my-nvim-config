@@ -9,6 +9,7 @@ vim.wo.relativenumber = true
 vim.wo.cursorline = true
 vim.wo.signcolumn = "yes"
 vim.o.termguicolors = true
+vim.opt.termguicolors = true
 --vim.wo.colorcolumn = "160"
 vim.o.tabstop = 4
 vim.bo.tabstop = 4

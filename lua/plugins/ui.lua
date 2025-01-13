@@ -5,28 +5,56 @@ return{
 		config = true,
 	},
 	{
-	    "lukas-reineke/indent-blankline.nvim",
-	    main = "ibl",
-	    ---@module "ibl"
+		"lukas-reineke/indent-blankline.nvim",
+		main = "ibl",
+		---@module "ibl"
 		---@type ibl.config
-        opts = {},
-		config = {},
-    },
-	{
-		"lewis6991/gitsigns.nvim",
+		opts = {},
 		config = function()
-			require('gitsigns').setup()
+			local highlight = {
+				"brown",
+				"red",
+				"orange",
+				"yellow",
+				"green",
+				"blue",
+				"purple",
+				"gray",
+				"white",
+				"black",
+			}
+
+			local hooks = require "ibl.hooks"
+			-- create the highlight groups in the highlight setup hook, so they are reset
+			-- every time the colorscheme changes
+			hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
+				vim.api.nvim_set_hl(0, "brown", { fg = "#4d3900" })
+				vim.api.nvim_set_hl(0, "red", { fg = "#E06C75" })
+				vim.api.nvim_set_hl(0, "orange", { fg = "#D19A66" })
+				vim.api.nvim_set_hl(0, "yellow", { fg = "#E5C07B" })
+				vim.api.nvim_set_hl(0, "green", { fg = "#98C379" })
+				vim.api.nvim_set_hl(0, "blue", { fg = "#61AFEF" })
+				vim.api.nvim_set_hl(0, "purple", { fg = "#C678DD" })
+				vim.api.nvim_set_hl(0, "gray", { fg = "#7B7B7B" })
+				vim.api.nvim_set_hl(0, "white", { fg = "#FCFCFC" })
+				vim.api.nvim_set_hl(0, "black", { fg = "#000000" })
+			end)
+			require("ibl").setup({indent = { highlight = highlight }})
 		end,
 	},
 	{
-        "goolord/alpha-nvim",
+		"lewis6991/gitsigns.nvim",
+		config = true,
+	},
+	{
+		"goolord/alpha-nvim",
 		dependencies = {
 			'echasnovski/mini.icons',
-		    'nvim-lua/plenary.nvim'
+			'nvim-lua/plenary.nvim'
 		},
-	    config = function()
+		config = function()
 			require'alpha'.setup(require'alpha.themes.theta'.config)
-	    end
+		end
 	},
 	{
 		"RRethy/vim-illuminate",
@@ -35,37 +63,20 @@ return{
 		end
 	},
 	{
-		"nvim-treesitter/nvim-treesitter",
-		config = function()
-			require("lazy").setup({{"nvim-treesitter/nvim-treesitter", build = ":TSUpdate"}})
-		end
+		"nvim-neo-tree/neo-tree.nvim",
+		branch = "v3.x",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+			"MunifTanjim/nui.nvim",
+			-- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
+		},
+		mappings = {
+			["l"] = "open",
+			["h"] = "close_node",
+			["<space>"] = "none",
+		},
+		config = true,
 	},
---	{
---		"nvim-tree/nvim-tree.lua",
---		version = "*",
---		lazy = false,
---		dependencies = {
---		    "nvim-tree/nvim-web-devicons",
---		},
---		config = function()
---		    require("nvim-tree").setup {}
---		end,
---	},
-{
-	"nvim-neo-tree/neo-tree.nvim",
-	branch = "v3.x",
-	dependencies = {
-		"nvim-lua/plenary.nvim",
-		"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-		"MunifTanjim/nui.nvim",
-		-- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
-	},
-	mappings = {
-		["l"] = "open",
-		["h"] = "close_node",
-		["<space>"] = "none",
-	},
-	config = true,
-},
 
 }
