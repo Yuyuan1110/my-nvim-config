@@ -13,12 +13,13 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
   end
 end
 vim.opt.rtp:prepend(lazypath)
-
-local opts = {
-    colorscheme = { "tokyonight-moon" }
-
-}
-
 vim.g.mapleader = "<Space>"
 vim.g.mapleader = " "
+
+local opts = {
+    colorscheme = "tokyonight-moon" ,
+	rocks = {
+		enable = false,
+	},
+}
 require("lazy").setup("plugins", opts)

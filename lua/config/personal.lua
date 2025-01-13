@@ -34,7 +34,7 @@ vim.o.exrc = true
 vim.o.wrap = false
 vim.o.splitright = true
 vim.keymap.set("n", "<leader>bc", "<cmd>bd<CR>")
-vim.o.clipboard = "unnamedplus"
+vim.opt.clipboard = "unnamedplus"
 vim.opt.foldmethod = 'expr'
 vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
 vim.opt.foldenable = false
