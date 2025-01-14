@@ -11,11 +11,13 @@ return {
 	{
 	    'nvim-lualine/lualine.nvim',
 	    dependencies = { 'nvim-tree/nvim-web-devicons' },
-		config = {
-			options = {
-				theme = 'tokyonight-moon',
-			},
-		},
+		config = function()
+			require('lualine').setup ({
+				options = {
+					theme = 'tokyonight-moon',
+				}
+			})
+		end,
 	},
 	{
 		"utilyre/barbecue.nvim",
@@ -25,9 +27,8 @@ return {
 	    "SmiteshP/nvim-navic",
 	    "nvim-tree/nvim-web-devicons",
 		},
-	    opts = {
-	      -- configurations go here
-	    },
-		config = true,
+		config = function()
+			require('barbecue').setup()
+		end,
 	 }
 }
