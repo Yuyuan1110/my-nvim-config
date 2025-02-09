@@ -30,7 +30,6 @@ return{
 				perlnavigator = {},
 				pyright = {},
 				lemminx = {},
-				neocmake = {},
 				yamlls = {},
 			},
 			require('lazydev').setup()
