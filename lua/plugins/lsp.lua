@@ -22,15 +22,16 @@ return{
 				clangd = {},
 				neocmake = {},
 				html = {},
-				jdtls = {},
-				eslint = {},
+				jdtls = {}, --java lsp
+				eslint = {}, -- js lsp
 				jsonls = {},
 				kotlin_language_server = {},
 				remark_ls = {},
 				perlnavigator = {},
 				pyright = {},
 				lemminx = {},
-				yamlls = {}
+				neocmake = {},
+				yamlls = {},
 			},
 			require('lazydev').setup()
 			require('mason').setup()
