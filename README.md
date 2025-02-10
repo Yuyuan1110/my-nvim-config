@@ -18,7 +18,10 @@ Ubuktu System installation:
         - `curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"`
         - `tar xf lazygit.tar.gz lazygit`
         - `sudo install lazygit -D -t /usr/local/bin/`
-
+&nbsp;
+    5. lsp dependencies:
+        - `sudo apt install corgo`
+        - `sudo apt install npm`
 Tips(remind myself):
     1. Type`:Glow` to preview markdown
     2. `Shift + hjkl` to switch buffer
