@@ -7,7 +7,10 @@ return{
 			"folke/lazydev.nvim",
 			"hrsh7th/nvim-cmp",
 			"hrsh7th/cmp-path",
-			'hrsh7th/cmp-nvim-lsp'
+			'hrsh7th/cmp-nvim-lsp',
+			'hrsh7th/cmp-buffer',
+			'hrsh7th/cmp-cmdline',
+
 		},
 
 		config = function()
@@ -34,6 +37,7 @@ return{
 			},
 			require('lazydev').setup()
 			require('mason').setup()
+			local capabilities = require('cmp_nvim_lsp').default_capabilities()
 			require('mason-lspconfig').setup({
 				ensure_installed = vim.tbl_keys(servers),
 				handlers = {
@@ -41,7 +45,7 @@ return{
 						require('lspconfig')[server_name].setup{
 							settings = servers[server_name],
 							on_attach = on_attach,
-							capabilities = require('cmp_nvim_lsp').default_capabilities(),
+							capabilities = capabilities,
 						}
 					end
 				},
@@ -59,7 +63,10 @@ return{
 					{ name = 'nvim_lsp' },
 					{ name = 'path' },
 					{ name = 'buffer' },
-				})
+				}),
+				window = {
+					completion = cmp.config.window.bordered(),
+				}
 			})
 		end,
 	},
