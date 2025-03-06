@@ -1,7 +1,7 @@
 -- 取得當前 buffer 的編號
 local bufnr = vim.api.nvim_get_current_buf()
 -- 將 'modifiable' 選項設定為 true
-vim.api.nvim_buf_set_option(bufnr, 'modifiable', true)
+--vim.api.nvim_buf_set_option(bufnr, 'modifiable', true)
 vim.g.encoding = "UTF-8"
 vim.o.fileencoding = "utf-8"
 vim.wo.number = true
@@ -10,7 +10,6 @@ vim.wo.cursorline = true
 vim.wo.signcolumn = "yes"
 vim.o.termguicolors = true
 vim.opt.termguicolors = true
---vim.wo.colorcolumn = "160"
 vim.o.tabstop = 4
 vim.bo.tabstop = 4
 vim.o.softtabstop = 4
@@ -39,3 +38,4 @@ vim.opt.foldmethod = 'expr'
 vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
 vim.opt.foldenable = false
 vim.opt.colorcolumn = "80"
+vim.opt.pumheight = 10

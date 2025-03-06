@@ -15,26 +15,26 @@ return {
 
 		config = function()
 			local servers = {
-					lua_ls = {
-						Lua = {
-							workspace = { checkThirdParty = false },
-							telemetry = { enable = false },
-						}
-					},
-					bashls = {},
-					neocmake = {},
-					html = {},
-					jdtls = {}, --java lsp
-					eslint = {}, -- js lsp
-					jsonls = {},
-					kotlin_language_server = {},
-					remark_ls = {},
-					perlnavigator = {},
-					pyright = {},
-					lemminx = {},
-					yamlls = {},
+				lua_ls = {
+					Lua = {
+						workspace = { checkThirdParty = false },
+						telemetry = { enable = false },
+					}
 				},
-				require('lazydev').setup()
+				bashls = {},
+				neocmake = {},
+				html = {},
+				jdtls = {}, --java lsp
+				eslint = {}, -- js lsp
+				jsonls = {},
+				kotlin_language_server = {},
+				remark_ls = {},
+				perlnavigator = {},
+				pyright = {},
+				lemminx = {},
+				yamlls = {},
+			},
+			require('lazydev').setup()
 			require('mason').setup()
 
 			local on_attach = function(client, bufnr)
