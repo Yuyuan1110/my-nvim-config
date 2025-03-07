@@ -1,7 +1,7 @@
 -- 取得當前 buffer 的編號
 local bufnr = vim.api.nvim_get_current_buf()
 -- 將 'modifiable' 選項設定為 true
---vim.api.nvim_buf_set_option(bufnr, 'modifiable', true)
+vim.api.nvim_buf_set_option(bufnr, 'modifiable', true)
 vim.g.encoding = "UTF-8"
 vim.o.fileencoding = "utf-8"
 vim.wo.number = true
@@ -33,9 +33,21 @@ vim.o.exrc = true
 vim.o.wrap = false
 vim.o.splitright = true
 vim.keymap.set("n", "<leader>bc", "<cmd>bd<CR>")
-vim.opt.clipboard = "unnamedplus"
+--vim.opt.clipboard = "unnamedplus"
 vim.opt.foldmethod = 'expr'
 vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
 vim.opt.foldenable = false
 vim.opt.colorcolumn = "80"
 vim.opt.pumheight = 10
+vim.api.nvim_set_var('clipboard', {
+  name = 'WslClipboard',
+  copy = {
+    ['+'] = 'clip.exe',
+    ['*'] = 'clip.exe',
+  },
+  paste = {
+    ['+'] = 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+    ['*'] = 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+  },
+  cache_enabled = 0,
+})
