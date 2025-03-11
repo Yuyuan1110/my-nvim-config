@@ -1,7 +1,8 @@
 -- 取得當前 buffer 的編號
 local bufnr = vim.api.nvim_get_current_buf()
--- 將 'modifiable' 選項設定為 true
-vim.api.nvim_buf_set_option(bufnr, 'modifiable', true)
+-- 將 'modifiable' 選項設定為 true, 確保一些插件運行，此功能為將buffer內容設為可編輯
+vim.api.nvim_set_option_value("modifiable", true, { buf = bufnr })
+--vim.api.nvim_buf_set_option(bufnr, 'modifiable', true)
 vim.g.encoding = "UTF-8"
 vim.o.fileencoding = "utf-8"
 vim.wo.number = true
