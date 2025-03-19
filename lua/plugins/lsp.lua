@@ -15,33 +15,40 @@ return {
 
 		config = function()
 			local servers = {
-				lua_ls = {
-					Lua = {
-						workspace = { checkThirdParty = false },
-						telemetry = { enable = false },
+					lua_ls = {
+						Lua = {
+							workspace = { checkThirdParty = false },
+							telemetry = { enable = false },
+						}
+					},
+					bashls = {},
+					neocmake = {},
+					html = {},
+					jdtls = {}, --java lsp
+					eslint = {}, -- js lsp
+					jsonls = {},
+					kotlin_language_server = {},
+					remark_ls = {},
+					perlnavigator = {},
+					pyright = {},
+					lemminx = {},
+					yamlls = {},
+					clangd = {
+						formatting = {
+							style = "file", -- Use .clang-format if available
+							fallbackStyle = { -- Fallback style if no .clang-format
+								BasedOnStyle = "LLVM",
+								IndentWidth = 4,
+							}
+						}
 					}
 				},
-				bashls = {},
-				neocmake = {},
-				html = {},
-				jdtls = {}, --java lsp
-				eslint = {}, -- js lsp
-				jsonls = {},
-				kotlin_language_server = {},
-				remark_ls = {},
-				perlnavigator = {},
-				pyright = {},
-				lemminx = {},
-				yamlls = {},
-			},
 			require('lazydev').setup()
 			require('mason').setup()
 
 			local on_attach = function(client, bufnr)
 				local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-				local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-
-				buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+				vim.api.nvim_set_option_value('omnifunc', 'v:lua.vim.lsp.omnifunc', { buf = bufnr })
 				local opts = { noremap = true, silent = true }
 
 				buf_set_keymap('n', 'gD', '<cmd>Telescope lsp_type_definitions<CR>', opts)
