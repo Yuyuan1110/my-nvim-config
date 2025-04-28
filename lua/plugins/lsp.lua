@@ -43,10 +43,11 @@ return {
 								IndentWidth = 4,
 							}
 						}
-					}
+					},
+					gopls = {},
 				},
 
-			require('lazydev').setup()
+				require('lazydev').setup()
 			require('mason').setup()
 
 			local capabilities = require('cmp_nvim_lsp').default_capabilities()

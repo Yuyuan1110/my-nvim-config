@@ -34,21 +34,22 @@ vim.o.exrc = true
 vim.o.wrap = false
 vim.o.splitright = true
 vim.keymap.set("n", "<leader>bc", "<cmd>bd<CR>")
---vim.opt.clipboard = "unnamedplus"
+-- vim.opt.clipboard = "unnamedplus"
+vim.opt.clipboard = ""
 vim.opt.foldmethod = 'expr'
 vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
 vim.opt.foldenable = false
 vim.opt.colorcolumn = "80"
 vim.opt.pumheight = 10
 vim.api.nvim_set_var('clipboard', {
-  name = 'WslClipboard',
-  copy = {
-    ['+'] = 'clip.exe',
-    ['*'] = 'clip.exe',
-  },
-  paste = {
-    ['+'] = 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
-    ['*'] = 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
-  },
-  cache_enabled = 0,
+	name = 'WslClipboard',
+	copy = {
+		['+'] = 'clip.exe',
+		['*'] = 'clip.exe',
+	},
+	paste = {
+		['+'] = 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+		['*'] = 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+	},
+	cache_enabled = 0,
 })
