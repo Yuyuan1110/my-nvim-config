@@ -28,7 +28,6 @@ return {
 					eslint = {}, -- js lsp
 					jsonls = {},
 					kotlin_language_server = {},
-					remark_ls = {},
 					perlnavigator = {},
 					pyright = {},
 					lemminx = {},
@@ -45,6 +44,7 @@ return {
 						}
 					},
 					gopls = {},
+					marksman = {},
 				},
 
 				require('lazydev').setup()
