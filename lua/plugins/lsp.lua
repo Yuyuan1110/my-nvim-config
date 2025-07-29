@@ -24,11 +24,9 @@ return {
 					bashls = {},
 					neocmake = {},
 					html = {},
-					jdtls = {}, --java lsp
 					eslint = {}, -- js lsp
 					jsonls = {},
-					kotlin_language_server = {},
-					remark_ls = {},
+					marksman = {},
 					perlnavigator = {},
 					pyright = {},
 					lemminx = {},
@@ -41,7 +39,8 @@ return {
 								IndentWidth = 4,
 							}
 						}
-					}
+					},
+					dotls = {},
 				},
 			require('lazydev').setup()
 			require('mason').setup()
