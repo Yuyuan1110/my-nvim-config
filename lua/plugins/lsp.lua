@@ -42,8 +42,12 @@ return {
 					},
 					dotls = {},
 				},
-			require('lazydev').setup()
+				require('lazydev').setup()
 			require('mason').setup()
+			vim.diagnostic.config({
+				float = { border = "rounded" },
+				virtual_text = true,
+			})
 
 			-- key mapping settings have been moved to config/keymaps.lua
 			--			local on_attach = function(client, bufnr)

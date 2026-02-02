@@ -22,11 +22,14 @@ vim.api.nvim_create_autocmd('LspAttach', {
 		map('n', 'gh', vim.lsp.buf.signature_help, opts)
 		map('n', 'gi', '<cmd>Telescope lsp_implementations<CR>', opts)
 		map('n', 'gr', '<cmd>Telescope lsp_references<CR>', opts)
---		map('n', '[d', vim.diagnostic.goto_prev, opts)
---		map('n', ']d', vim.diagnostic.goto_next, opts)
+		map('n', '[d', function() vim.diagnostic.jump({ count = -1 }) end, { desc = "Previous Diagnostic" })
+		map('n', ']d', function() vim.diagnostic.jump({ count = 1 }) end, { desc = "Next Diagnostic" })
+		--		map('n', '[d', vim.diagnostic.goto_prev, opts)
+		--		map('n', ']d', vim.diagnostic.goto_next, opts)
 		map('n', '<leader>ll', vim.lsp.codelens.run, opts)
 		map('n', '<leader>lR', vim.lsp.buf.rename, opts)
-		map('n', '<leader>F', function() vim.lsp.buf.format { async = true } end, opts)
+		map('n', '<leader>F', function() vim.lsp.buf.format { async = true } end,
+			vim.tbl_extend("force", opts, { desc = "LSP: Format code" }))
 
 		-- clangd setup
 		local client = vim.lsp.get_client_by_id(ev.data.client_id)
