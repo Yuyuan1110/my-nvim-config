@@ -9,3 +9,29 @@ map("n", "<S-l>", "<cmd>bnext<cr>", { desc = "Next Buffer" })
 --map("n", "<leader>fT", function() Snacks.terminal() end, { desc = "Terminal (cwd)" })
 --map("n", "<leader>ft", function() Snacks.terminal(nil, { cwd = LazyVim.root() }) end, { desc = "Terminal (Root Dir)" })
 --map("n", "<c-/>",      function() Snacks.terminal(nil, { cwd = LazyVim.root() }) end, { desc = "Terminal (Root Dir)" })
+
+-- LSP key maps
+vim.api.nvim_create_autocmd('LspAttach', {
+	group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+	callback = function(ev)
+		local opts = { buffer = ev.buf, noremap = true, silent = true }
+
+		map('n', 'gD', '<cmd>Telescope lsp_type_definitions<CR>', opts)
+		map('n', 'gd', '<cmd>Telescope lsp_definitions<CR>', opts)
+		map('n', 'K', vim.lsp.buf.hover, opts)
+		map('n', 'gh', vim.lsp.buf.signature_help, opts)
+		map('n', 'gi', '<cmd>Telescope lsp_implementations<CR>', opts)
+		map('n', 'gr', '<cmd>Telescope lsp_references<CR>', opts)
+--		map('n', '[d', vim.diagnostic.goto_prev, opts)
+--		map('n', ']d', vim.diagnostic.goto_next, opts)
+		map('n', '<leader>ll', vim.lsp.codelens.run, opts)
+		map('n', '<leader>lR', vim.lsp.buf.rename, opts)
+		map('n', '<leader>F', function() vim.lsp.buf.format { async = true } end, opts)
+
+		-- clangd setup
+		local client = vim.lsp.get_client_by_id(ev.data.client_id)
+		if client then
+			client.server_capabilities.documentFormattingProvider = true
+		end
+	end,
+})
