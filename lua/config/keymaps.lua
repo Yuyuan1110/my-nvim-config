@@ -15,6 +15,11 @@ vim.api.nvim_create_autocmd('LspAttach', {
 	group = vim.api.nvim_create_augroup('UserLspConfig', {}),
 	callback = function(ev)
 		local opts = { buffer = ev.buf, noremap = true, silent = true }
+		local client = vim.lsp.get_client_by_id(ev.data.client_id)
+		-- Prohibbited pyright's format feature.
+		if client.name == "pyright" then
+			client.server_capabilities.documentFormattingProvider = false
+		end
 
 		map('n', 'gD', '<cmd>Telescope lsp_type_definitions<CR>', opts)
 		map('n', 'gd', '<cmd>Telescope lsp_definitions<CR>', opts)
