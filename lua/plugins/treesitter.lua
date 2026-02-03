@@ -4,9 +4,8 @@ return {
 		build = ":TSUpdate",
 		dependencies = { "nvim-treesitter/nvim-treesitter-textobjects" },
 		config = function()
-			local configs = require("nvim-treesitter.configs")
 
-			configs.setup({
+			require'nvim-treesitter'.setup({
 				ensure_installed = {
 					"bash", "ssh_config", "diff", "java", "kotlin", "html", "css",
 					"javascript", "php", "nginx", "c", "cpp", "make", "python",
