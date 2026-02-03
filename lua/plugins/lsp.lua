@@ -29,6 +29,7 @@ return {
 					marksman = {},
 					perlnavigator = {},
 					pyright = {},
+					ruff= {},
 					lemminx = {},
 					yamlls = {},
 					clangd = {
