@@ -15,12 +15,7 @@ return {
 
 		config = function()
 			local servers = {
-					lua_ls = {
-						Lua = {
-							workspace = { checkThirdParty = false },
-							telemetry = { enable = false },
-						}
-					},
+					lua_ls = {},
 					bashls = {},
 					neocmake = {},
 					html = {},
@@ -29,27 +24,16 @@ return {
 					marksman = {},
 					perlnavigator = {},
 					pyright = {},
-					ruff= {},
+					ruff = {},
 					lemminx = {},
 					yamlls = {},
-					clangd = {
-						formatting = {
-							style = "file", -- Use .clang-format if available
-							fallbackStyle = { -- Fallback style if no .clang-format
-								BasedOnStyle = "LLVM",
-								IndentWidth = 4,
-							}
-						}
-					},
+					clangd = {},
 					dotls = {},
 				},
-				require('lazydev').setup()
-			require('mason').setup()
-			vim.diagnostic.config({
-				float = { border = "rounded" },
-				virtual_text = true,
-			})
 
+			-- init plugin
+			require('lazydev').setup()
+			require('mason').setup()
 			-- key mapping settings have been moved to config/keymaps.lua
 			--			local on_attach = function(client, bufnr)
 			--				local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
@@ -76,47 +60,33 @@ return {
 				ensure_installed = vim.tbl_keys(servers),
 				handlers = {
 					function(server_name)
-						vim.lsp.config(server_name, {
-							settings = servers[server_name],
+						local opts = {
 							capabilities = capabilities,
-						})
-						vim.lsp.enable(server_name)
-					end,
+							settings = servers[server_name] or {},
+						}
 
-					-- The require('lspconfig') "framework" is deprecated, update below.
-					-- Please refer to https://www.reddit.com/r/neovim/comments/1nmh99k/beware_the_old_nvimlspconfig_setup_api_is/
-					--					require('lspconfig').clangd.setup {
-					--						settings = {
-					--							clangd = {
-					--								-- ... other clangd settings ...
-					--								formatting = {
-					--									style = "file", -- Use .clang-format if available
-					--									fallbackStyle = { -- Fallback style if no .clang-format
-					--										BasedOnStyle = "LLVM",
-					--										IndentWidth = 4,
-					--									}
-					--								}
-					--							}
-					--						},
-					--						on_attach = on_attach,
-					--						capabilities = capabilities,
-					--					}
-					vim.lsp.config("clangd", {
-						settings = {
-							clangd = {
-								-- ... other clangd settings ...
-								formatting = {
-									style = "file", -- Use .clang-format if available
-									fallbackStyle = { -- Fallback style if no .clang-format
-										BasedOnStyle = "LLVM",
-										IndentWidth = 4,
-									}
+						if server_name == "clangd" then
+							opts.cmd = { "clangd", "--background-index",
+								"--fallback-style={BasedOnStyle: LLVM, IndentWidth: 4}" }
+						end
+						if server_name == "lua_ls" then
+							opts.settings = {
+								Lua = {
+									workspace = { checkThirdParty = false },
+									telemetry = { enable = false },
+									format = { enable = true },
 								}
 							}
-						},
-						capabilities = capabilities,
-					})
+						end
+
+						vim.lsp.config(server_name, opts)
+						vim.lsp.enable(server_name)
+					end,
 				},
+			})
+			vim.diagnostic.config({
+				float = { border = "rounded" },
+				virtual_text = true,
 			})
 		end,
 	},
