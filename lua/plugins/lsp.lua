@@ -10,7 +10,8 @@ return {
 			'hrsh7th/cmp-nvim-lsp',
 			'hrsh7th/cmp-buffer',
 			'hrsh7th/cmp-cmdline',
-
+			"kevinhwang91/nvim-ufo",
+			"kevinhwang91/promise-async",
 		},
 
 		config = function()
@@ -31,8 +32,8 @@ return {
 					dotls = {},
 				},
 
-			-- init plugin
-			require('lazydev').setup()
+				-- init plugin
+				require('lazydev').setup()
 			require('mason').setup()
 			-- key mapping settings have been moved to config/keymaps.lua
 			--			local on_attach = function(client, bufnr)
@@ -66,8 +67,13 @@ return {
 						}
 
 						if server_name == "clangd" then
-							opts.cmd = { "clangd", "--background-index",
-								"--fallback-style={BasedOnStyle: LLVM, IndentWidth: 4}" }
+							opts.cmd = {
+								"clangd",
+								"--background-index",
+								"--clang-tidy",
+								"--header-insertion=never",
+								"--fallback-style={BasedOnStyle: LLVM, UseTab: Always, IndentWidth: 8, TabWidth: 8}",
+							}
 						end
 						if server_name == "lua_ls" then
 							opts.settings = {
@@ -79,14 +85,23 @@ return {
 							}
 						end
 
-						vim.lsp.config(server_name, opts)
-						vim.lsp.enable(server_name)
+						--	vim.lsp.config(server_name, opts)
+						--	vim.lsp.enable(server_name)
+						require('lspconfig')[server_name].setup(opts)
 					end,
 				},
 			})
 			vim.diagnostic.config({
 				float = { border = "rounded" },
-				virtual_text = true,
+				virtual_text = { prefix = "●" },
+				severity_sort = true,
+			})
+			
+			-- Function folding feature, use LSP first, then use indentation if necessary.
+			require('ufo').setup({
+				provider_selector = function(bufnr, filetype, buftype)
+					return { 'lsp', 'indent' }
+				end
 			})
 		end,
 	},
